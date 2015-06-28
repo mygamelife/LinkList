@@ -8,7 +8,8 @@ struct LinkedList {
   void *data;
 };
 
-#define findList(listPtr, data) findLinkedList(listPtr, data, compareChar)
+#define isItemInList(listPtr, data) findLinkedList(listPtr, data, compareChar)
+#define findAndReturnItemInList(listPtr, data)  findItemInList(listPtr, data, compareChar)
 
 LinkedList *linkListNew(void *data);
 void addLinkedList(LinkedList **listPtr, LinkedList *newList);
@@ -17,6 +18,7 @@ void removeLinkedList(LinkedList **listPtr, LinkedList *listToRemove);
 void destroyAllLinkedLists(LinkedList *firstList);
 int compareChar(void *dataInCollection, void *targetData);
 int findLinkedList(LinkedList **listPtr, void *data, int(*compareChar)(void *dataInCollection, void *data));
+LinkedList *findItemInList(LinkedList **listPtr, void *data, int(*compareChar)(void *dataInCollection, void *data));
 #endif // LinkedList_H
 
 

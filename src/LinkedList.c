@@ -78,16 +78,15 @@ int compareChar(void *dataInCollection, void *targetData)  {
   else return 0;
 }
 
-/** addLinkedList add newList into LinkedList
+/** findLinkedList
  *  input :
- *          **listPtr is the pointer pointing to head pointer address
- *          *newList is the pointer pointing to the new created list
+ *          
+ *          
  *  output  :
- *            newList should contain in the LinkList->next;
+ *            
  **/
 int findLinkedList(LinkedList **listPtr, void *data, int(*compareChar)(void *dataInCollection, void *data))  {
   LinkedList *head = *listPtr;
-  int result;
 
   if(head != NULL)  {
     if(compareChar(head->data, data))
@@ -108,7 +107,7 @@ void removeHeadList(LinkedList **listPtr, LinkedList *listToRemove) {
   
   //listToRemove at head
   else  {
-    if(findList(&currentPtr, listToRemove->data)) {
+    if(isItemInList(&currentPtr, listToRemove->data)) {
       tempList = (*listPtr)->next;
       free(currentPtr);
       *listPtr = tempList;
@@ -131,7 +130,7 @@ void removeLinkedList(LinkedList **listPtr, LinkedList *listToRemove) {
   //listToRemove at body/tail
   removeList = currentPtr->next;
   while(removeList != NULL) {
-    if(findList(&removeList, listToRemove->data))  {
+    if(isItemInList(&removeList, listToRemove->data))  {
       tempList = removeList->next;
       free(removeList);
       currentPtr->next = tempList;
@@ -140,4 +139,18 @@ void removeLinkedList(LinkedList **listPtr, LinkedList *listToRemove) {
     currentPtr = currentPtr->next;
     removeList = removeList->next;
   }
+}
+
+LinkedList *findItemInList(LinkedList **listPtr, void *data, int(*compareChar)(void *dataInCollection, void *data))  {
+  LinkedList *currentPtr = *listPtr;
+
+  while(currentPtr != NULL)  {
+    if(compareChar(currentPtr->data, data))
+      return currentPtr;
+    
+    currentPtr = currentPtr->next;
+  }
+
+  printf("Item Not Found In The List\n");
+  return NULL;
 }

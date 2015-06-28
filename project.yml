@@ -28,7 +28,6 @@
     - -:test/support
   :source:
     - src/**
-    - app/**
   :support:
     - test/support
 

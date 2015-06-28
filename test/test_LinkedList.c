@@ -201,7 +201,7 @@ void test_findLinkedList_given_targetName_newName_should_return_1(void) {
 
   printf("Start test_findLinkedList_given_targetName_newName_should_return_1\n");
   addLinkedList(&head, newList);
-  result = findList(&head, target);
+  result = isItemInList(&head, target);
   printf("----------------------------------------------------------------");
 
   TEST_ASSERT_EQUAL(1, result);
@@ -226,7 +226,7 @@ void test_findLinkedList_given_target_name_name2_should_return_1(void) {
   addLinkedList(&head, list1);
   addLinkedList(&head, list2);
   addLinkedList(&head, list3);
-  result = findList(&head->next, target);
+  result = isItemInList(&head->next, target);
   printf("----------------------------------------------------------------");
 
   TEST_ASSERT_EQUAL(1, result);
@@ -251,7 +251,7 @@ void test_findLinkedList_given_target_name_doesnt_exist_in_LinkedList_should_ret
   addLinkedList(&head, list1);
   addLinkedList(&head, list2);
   addLinkedList(&head, list3);
-  result = findList(&head, target);
+  result = isItemInList(&head, target);
   printf("----------------------------------------------------------------");
 
   TEST_ASSERT_EQUAL(0, result);
@@ -509,5 +509,83 @@ void test_removeLinkedList_should_remove_list_in_sequence_2_1_4_3_expect_head_to
   TEST_ASSERT_NULL(head);
 
   printf("----------------------------------------------------------------");
+  destroyAllLinkedLists(head);
+}
+
+void test_findAndReturnItemInList_find_RockU_in_list_should_return_listA(void) {
+  char *name1 = "RockU";
+  
+  LinkedList *result = NULL;
+  LinkedList *head = NULL;
+  LinkedList *listA = linkListNew(name1);
+
+  printf("test_findAndReturnItemInList_find_RockU_in_list_should_return_listA\n");
+  addLinkedList(&head, listA);
+  
+  result = findAndReturnItemInList(&head, "RockU");
+  printf("----------------------------------------------------------------");
+
+  TEST_ASSERT_NOT_NULL(result);
+  char *resultA = (char*)result->data;
+  TEST_ASSERT_EQUAL_STRING("RockU", resultA);
+  TEST_ASSERT_NULL(result->next);
+  
+  destroyAllLinkedLists(head);
+}
+
+void test_findAndReturnItemInList_find_Bacon_in_list_should_return_listB(void) {
+  char *name1 = "RockU";
+  char *name2 = "Bacon";
+  char *name3 = "PorkBelly";
+  
+  LinkedList *result = NULL;
+  LinkedList *head = NULL;
+  LinkedList *listA = linkListNew(name1);
+  LinkedList *listB = linkListNew(name2);
+  LinkedList *listC = linkListNew(name3);
+
+  printf("test_findAndReturnItemInList_find_Bacon_in_list_should_return_listB\n");
+  addLinkedList(&head, listA);
+  addLinkedList(&head, listB);
+  addLinkedList(&head, listC);
+  
+  result = findAndReturnItemInList(&head, "Bacon");
+  printf("----------------------------------------------------------------");
+
+  TEST_ASSERT_NOT_NULL(result);
+  char *resultA = (char*)result->data;
+  TEST_ASSERT_EQUAL_STRING("Bacon", resultA);
+  TEST_ASSERT_NOT_NULL(result->next);
+  
+  destroyAllLinkedLists(head);
+}
+
+void test_findAndReturnItemInList_find_Sashimi_in_list_should_return_NULL(void) {
+  char *name1 = "RockU";
+  char *name2 = "Bacon";
+  char *name3 = "PorkBelly";
+  char *name4 = "Beef";
+  char *name5 = "BeefStick";
+  
+  LinkedList *result = NULL;
+  LinkedList *head = NULL;
+  LinkedList *listA = linkListNew(name1);
+  LinkedList *listB = linkListNew(name2);
+  LinkedList *listC = linkListNew(name3);
+  LinkedList *listD = linkListNew(name4);
+  LinkedList *listE = linkListNew(name5);
+
+  printf("test_findAndReturnItemInList_find_Sashimi_in_list_should_return_NULL\n");
+  addLinkedList(&head, listA);
+  addLinkedList(&head, listB);
+  addLinkedList(&head, listC);
+  addLinkedList(&head, listD);
+  addLinkedList(&head, listE);
+  
+  result = findAndReturnItemInList(&head, "Sashimi");
+  printf("----------------------------------------------------------------");
+
+  TEST_ASSERT_NULL(result);
+  
   destroyAllLinkedLists(head);
 }
